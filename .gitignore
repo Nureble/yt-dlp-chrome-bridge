@@ -1,0 +1,41 @@
+# Local config (copy of config.example.json with personal paths)
+config.json
+
+# yt-dlp itself and its config (each user provides their own)
+yt-dlp.exe
+yt-dlp.conf
+ffmpeg.exe
+ffprobe.exe
+ffplay.exe
+# ffmpeg folder
+ffmpeg-master-latest-win64-gpl/
+
+deno.exe
+
+# Runtime data
+logs/
+*.log
+yt-dlp-bridge-settings.json
+videos/
+music/
+playlist/
+channel/
+
+# Downloads / archives
+archive.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~

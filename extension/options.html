@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>yt-dlp Bridge — настройки</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <h1>yt-dlp Bridge — настройки</h1>
+    <p class="subtitle">Настройки по умолчанию, которые применяются к новым задачам.<br>
+      Вкладка YouTube и попап показывают эти значения и могут переопределить их для конкретной задачи.</p>
+
+    <div id="server-info" class="server-info">проверяю сервер…</div>
+
+    <div class="card">
+      <h2>yt-dlp</h2>
+      <div class="row">
+        <span class="row-label">
+          Текущая версия:
+          <strong id="ytdlp-version" style="margin-left:6px">—</strong>
+        </span>
+        <button id="update-ytdlp" class="btn">Обновить</button>
+      </div>
+      <p class="hint">Запускает <code>yt-dlp.exe -U</code> через очередь сервера.<br>
+        Если в очереди или прямо сейчас идёт скачивание — обновление подождёт пока оно завершится.<br>
+        Прогресс и результат появятся в попапе расширения как обычная задача.</p>
+      <span id="update-status" class="status"></span>
+    </div>
+
+    <div class="card">
+      <h2>Видео и аудио</h2>
+
+      <div class="row">
+        <label class="row-label">Качество видео по умолчанию:</label>
+        <select id="video_quality">
+          <option value="best">Лучшее</option>
+          <option value="2160">2160p (4K)</option>
+          <option value="1440">1440p (2K)</option>
+          <option value="1080">1080p (Full HD)</option>
+          <option value="720">720p (HD)</option>
+          <option value="480">480p</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label class="row-label">Аудио-формат по умолчанию:</label>
+        <select id="audio_format">
+          <option value="opus">Opus (оригинал)</option>
+          <option value="m4a">M4A</option>
+          <option value="mp3">MP3</option>
+          <option value="wav">WAV</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label class="row-label">Битрейт MP3 по умолчанию:</label>
+        <select id="audio_quality">
+          <option value="0">VBR (умный, ~245 kbps)</option>
+          <option value="320K">320 kbps</option>
+          <option value="192K">192 kbps</option>
+          <option value="128K">128 kbps</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Контейнер</h2>
+      <p class="hint">Что делать с финальным файлом видео.</p>
+
+      <div class="radio-group">
+        <label><input type="radio" name="container" value="both"> <strong>MKV + MP4</strong> (как в твоём конфиге)</label>
+        <label><input type="radio" name="container" value="mp4"> <strong>Только MP4</strong> (yt-dlp склеит сразу в mp4)</label>
+        <label><input type="radio" name="container" value="mkv"> <strong>Только MKV</strong></label>
+      </div>
+      <p class="hint">«Только MP4» работает быстрее (без копии) и занимает меньше места,<br>но некоторые форматы (4K) могут не помещаться в mp4 → yt-dlp перекодирует.</p>
+    </div>
+
+    <div class="card">
+      <h2>Архив</h2>
+      <label class="checkbox-row">
+        <input type="checkbox" id="use_archive">
+        <span>
+          <strong>Использовать archive.txt</strong>
+          <small>yt-dlp пропускает уже скачанные ID. Снимай галочку если хочешь скачать ролик повторно.</small>
+        </span>
+      </label>
+    </div>
+
+    <div class="card">
+      <h2>Паузы между загрузками</h2>
+      <p class="hint">Что использовать когда в попапе выбрано «По умолчанию».<br>
+        Флаги командной строки переопределяют <code>yt-dlp.conf</code>, поэтому «Без пауз» здесь — это реально 0 секунд, даже если в конфиге стоит <code>--sleep-interval 20</code>.</p>
+
+      <div class="radio-group">
+        <label><input type="radio" name="sleep" value="config"> <strong>Из yt-dlp.conf</strong> (рекомендуется для YouTube)</label>
+        <label><input type="radio" name="sleep" value="none"> <strong>Без пауз</strong> — для SoundCloud, Twitter и т.п. (на YouTube рискованно)</label>
+        <label><input type="radio" name="sleep" value="custom"> <strong>Свои секунды:</strong>
+          <input type="number" id="sleep_custom" min="0" max="3600" style="margin-left:8px; width:80px; padding:4px 8px; background:#181818; border:1px solid #444; border-radius:4px; color:#fff; font-family:inherit; font-size:13px">
+        </label>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="save" class="btn btn-primary">Сохранить</button>
+      <button id="reset" class="btn">Сбросить к дефолтам</button>
+      <span id="status" class="status"></span>
+    </div>
+
+    <div class="card help">
+      <h2>Где что</h2>
+      <ul>
+        <li>Сервер слушает <code>http://127.0.0.1:5000</code></li>
+        <li>Файл с этими настройками: <code>D:\yt-dlp\yt-dlp-bridge-settings.json</code></li>
+        <li>Логи каждой задачи: <code>D:\yt-dlp\logs\NNNN.log</code></li>
+        <li>Главный конфиг yt-dlp (прокси, куки, пути): <code>D:\yt-dlp\yt-dlp.conf</code> — расширение его НЕ трогает</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

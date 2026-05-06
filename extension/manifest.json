@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "yt-dlp Bridge",
+  "version": "2.6",
+  "description": "Скачивание медиа через локальный yt-dlp: YouTube, Twitter/X, Twitch, SoundCloud, Reddit, Instagram и 1800+ других сайтов. Попап и правый клик.",
+  "permissions": ["storage", "activeTab", "tabs", "contextMenus"],
+  "host_permissions": [
+    "http://127.0.0.1:5000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "yt-dlp Bridge"
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}

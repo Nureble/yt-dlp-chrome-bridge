@@ -1,0 +1,11 @@
+{
+  "_comment": "Copy this file to config.json and edit yt_dlp_dir. See README.md for details.",
+
+  "yt_dlp_dir": "D:/yt-dlp",
+
+  "host": "127.0.0.1",
+  "port": 5000,
+
+  "keep_finished": 30,
+  "log_retention_days": 30
+}

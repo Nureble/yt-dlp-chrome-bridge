@@ -1,0 +1,433 @@
+* { box-sizing: border-box; }
+
+body {
+  width: 380px;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 13px;
+  background: #1a1a1a;
+  color: #fff;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #212121;
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.title { font-size: 14px; font-weight: 600; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-btn {
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #ccc;
+  font-size: 14px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.header-btn:hover {
+  background: #333;
+  color: #fff;
+}
+
+.server-status {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.server-up { background: #1b5e20; color: #c8e6c9; }
+.server-down { background: #5e1b1b; color: #ffcdd2; }
+
+.section {
+  padding: 10px 14px 6px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.section:last-child { border-bottom: none; }
+
+.section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 11px;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: inherit;
+  padding: 0 2px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.15s, color 0.15s;
+}
+
+.link-btn:hover {
+  color: #ff5555;
+  text-decoration-color: #ff5555;
+}
+
+/* === Блок Скачать === */
+.dl-context {
+  background: #252525;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.ctx-good, .ctx-empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ctx-good {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.ctx-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ctx-kind {
+  color: #aaa;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.ctx-title {
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.ctx-icon { font-size: 16px; flex-shrink: 0; }
+
+.ctx-url {
+  color: #9ad;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ctx-empty { color: #aaa; font-size: 11px; }
+
+.dl-url {
+  width: 100%;
+  padding: 8px 10px;
+  background: #181818;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 13px;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+
+.dl-url:focus { outline: none; border-color: #ff0000; }
+
+.dl-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.dl-tab {
+  flex: 1;
+  padding: 6px 4px;
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 12px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-family: inherit;
+}
+
+.dl-tab:hover { color: #fff; }
+.dl-tab-active { color: #fff; border-bottom-color: #ff0000; }
+
+.dl-pane { padding: 4px 0; }
+
+.dl-label {
+  display: block;
+  margin: 6px 0 3px;
+  color: #ccc;
+  font-size: 11px;
+}
+
+.dl-select, .dl-input {
+  width: 100%;
+  padding: 5px 8px;
+  background: #181818;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.dl-select { cursor: pointer; }
+.dl-select:focus, .dl-input:focus { outline: none; border-color: #ff0000; }
+.dl-input { margin-top: 4px; }
+
+.dl-select-compact { width: auto; min-width: 130px; }
+
+.dl-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.dl-checkbox input { cursor: pointer; accent-color: #ff0000; margin: 0; }
+
+.dl-common {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #3a3a3a;
+}
+
+.dl-common-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dl-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.dl-go {
+  padding: 7px 16px;
+  background: #ff0000;
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.dl-go:hover { background: #cc0000; }
+
+.dl-status {
+  flex: 1;
+  font-size: 11px;
+  color: #aaa;
+  word-break: break-word;
+}
+
+.dl-status-ok { color: #4caf50; }
+.dl-status-err { color: #ff5555; }
+.dl-status-pending { color: #ffaa00; }
+
+.dl-hidden { display: none !important; }
+
+.dl-sleep-warn {
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: rgba(255, 170, 0, 0.12);
+  border: 1px solid rgba(255, 170, 0, 0.4);
+  border-radius: 4px;
+  color: #ffcc66;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+/* === Очередь / задачи === */
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px;
+  background: #252525;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.task-info { flex: 1; min-width: 0; }
+
+.task-id {
+  display: inline-block;
+  padding: 1px 6px;
+  background: #333;
+  border-radius: 8px;
+  font-size: 10px;
+  color: #aaa;
+  margin-right: 6px;
+}
+
+.task-title { font-weight: 500; margin-bottom: 2px; }
+
+.task-tab-title {
+  color: #ccc;
+  font-size: 12px;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-url {
+  color: #999;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-status {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.status-running { background: #ff9800; color: #000; animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+.status-pending { background: #424242; color: #ccc; }
+.status-done { background: #2e7d32; color: #c8e6c9; }
+.status-error { background: #c62828; color: #ffcdd2; }
+.status-cancelled { background: #424242; color: #999; }
+
+.icon-btn {
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #ccc;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1;
+}
+
+.icon-btn:hover { background: #333; }
+.cancel-btn:hover { border-color: #ff5555; color: #ff5555; }
+.restart-btn:hover { border-color: #4caf50; color: #4caf50; }
+
+.duration { color: #888; font-size: 10px; }
+
+/* Прогресс */
+.progress { margin-top: 6px; font-size: 11px; }
+
+.progress-label {
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  font-family: Consolas, monospace;
+  font-size: 10px;
+}
+
+.progress-row { display: flex; align-items: center; gap: 6px; }
+
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff9800, #ffc107);
+  transition: width 0.3s ease-out;
+}
+
+.progress-pct {
+  color: #ccc;
+  font-size: 10px;
+  font-family: Consolas, monospace;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* Empty / server down */
+.empty {
+  padding: 20px 14px;
+  text-align: center;
+  color: #888;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.server-down-state .hint { margin-top: 8px; font-size: 11px; }
+.server-down-state code {
+  background: #333;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: Consolas, monospace;
+  color: #fff;
+}
+
+.server-down-state button {
+  margin-top: 10px;
+  padding: 5px 12px;
+  background: #333;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+}

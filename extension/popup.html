@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="title">yt-dlp Bridge</div>
+    <div class="header-actions">
+      <button id="open-options" class="header-btn" title="Настройки">⚙</button>
+      <div id="server-status" class="server-status server-down">…</div>
+    </div>
+  </div>
+
+  <div id="content">
+    <!-- Блок "Скачать" -->
+    <div class="section dl-section" id="dl-section">
+      <div class="section-title">Скачать</div>
+
+      <!-- Контекст текущей вкладки -->
+      <div id="dl-context" class="dl-context"></div>
+
+      <!-- Поле URL -->
+      <input type="text" id="dl-url" class="dl-url" placeholder="Или вставь YouTube-ссылку…">
+
+      <!-- Вкладки режимов -->
+      <div class="dl-tabs" id="dl-tabs">
+        <button class="dl-tab dl-tab-active" data-tab="video" type="button">🎬 Видео</button>
+        <button class="dl-tab" data-tab="audio" type="button">🎵 Аудио</button>
+        <button class="dl-tab" data-tab="playlist" type="button">📃 Плейлист</button>
+        <button class="dl-tab" data-tab="channel" type="button">📺 Канал</button>
+      </div>
+
+      <!-- Видео -->
+      <div class="dl-pane" data-pane="video">
+        <label class="dl-label">Качество:</label>
+        <select id="dl-quality" class="dl-select">
+          <option value="best">Лучшее</option>
+          <option value="2160">2160p (4K)</option>
+          <option value="1440">1440p (2K)</option>
+          <option value="1080" selected>1080p</option>
+          <option value="720">720p</option>
+          <option value="480">480p</option>
+        </select>
+      </div>
+
+      <!-- Аудио -->
+      <div class="dl-pane dl-hidden" data-pane="audio">
+        <label class="dl-label">Формат:</label>
+        <select id="dl-aformat" class="dl-select">
+          <option value="opus">Opus</option>
+          <option value="m4a">M4A</option>
+          <option value="mp3" selected>MP3</option>
+          <option value="wav">WAV</option>
+        </select>
+        <label class="dl-label" id="dl-aq-label">Битрейт:</label>
+        <select id="dl-aquality" class="dl-select">
+          <option value="0" selected>VBR</option>
+          <option value="320K">320 kbps</option>
+          <option value="192K">192 kbps</option>
+          <option value="128K">128 kbps</option>
+        </select>
+      </div>
+
+      <!-- Плейлист -->
+      <div class="dl-pane dl-hidden" data-pane="playlist">
+        <label class="dl-label">Что скачать:</label>
+        <select id="dl-pl-range" class="dl-select">
+          <option value="all" selected>Весь</option>
+          <option value="10">Первые 10</option>
+          <option value="25">Первые 25</option>
+          <option value="50">Первые 50</option>
+          <option value="custom">Свой диапазон…</option>
+        </select>
+        <input type="text" id="dl-pl-custom" class="dl-input dl-hidden" placeholder="напр. 1-20 или 5,7,10-15">
+        <label class="dl-label">Формат:</label>
+        <select id="dl-pl-mode" class="dl-select">
+          <option value="video" selected>Видео (1080p)</option>
+          <option value="video-best">Видео (лучшее)</option>
+          <option value="mp3">MP3</option>
+          <option value="opus">Opus</option>
+          <option value="m4a">M4A</option>
+        </select>
+        <label class="dl-checkbox">
+          <input type="checkbox" id="dl-pl-subfolder" checked>
+          <span>Отдельная папка</span>
+        </label>
+      </div>
+
+      <!-- Канал -->
+      <div class="dl-pane dl-hidden" data-pane="channel">
+        <label class="dl-label">Сколько последних:</label>
+        <select id="dl-ch-range" class="dl-select">
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="all">ВСЕ</option>
+          <option value="custom">Свой диапазон…</option>
+        </select>
+        <input type="text" id="dl-ch-custom" class="dl-input dl-hidden" placeholder="напр. 1-30">
+        <label class="dl-label">Формат:</label>
+        <select id="dl-ch-mode" class="dl-select">
+          <option value="video" selected>Видео (1080p)</option>
+          <option value="video-best">Видео (лучшее)</option>
+          <option value="mp3">MP3</option>
+          <option value="opus">Opus</option>
+          <option value="m4a">M4A</option>
+        </select>
+        <label class="dl-checkbox">
+          <input type="checkbox" id="dl-ch-subfolder" checked>
+          <span>Отдельная папка</span>
+        </label>
+      </div>
+
+      <!-- Общие настройки + кнопка -->
+      <div class="dl-common">
+        <div class="dl-common-row">
+          <label class="dl-label" style="margin:0; flex:1">Контейнер:</label>
+          <select id="dl-container" class="dl-select dl-select-compact">
+            <option value="both" selected>MKV + MP4</option>
+            <option value="mp4">Только MP4</option>
+            <option value="mkv">Только MKV</option>
+          </select>
+        </div>
+        <div class="dl-common-row" style="margin-top:6px">
+          <label class="dl-label" style="margin:0; flex:1">Паузы:</label>
+          <select id="dl-sleep" class="dl-select dl-select-compact">
+            <option value="config" selected>По умолчанию</option>
+            <option value="none">Без пауз</option>
+            <option value="custom">Свои секунды…</option>
+          </select>
+        </div>
+        <input type="number" id="dl-sleep-custom" class="dl-input dl-hidden" placeholder="секунды (напр. 5)" min="0" max="3600">
+        <div id="dl-sleep-warn" class="dl-sleep-warn dl-hidden">⚠ Без пауз на YouTube — риск временного бана аккаунта/IP</div>
+        <label class="dl-checkbox">
+          <input type="checkbox" id="dl-use-archive" checked>
+          <span>Использовать archive.txt</span>
+        </label>
+      </div>
+
+      <div class="dl-actions">
+        <button id="dl-go" class="dl-go" type="button">Скачать</button>
+        <span id="dl-status" class="dl-status"></span>
+      </div>
+    </div>
+
+    <!-- Текущая задача -->
+    <div class="section" id="current-section" style="display:none">
+      <div class="section-title">Сейчас качается</div>
+      <div id="current-task"></div>
+    </div>
+
+    <!-- Очередь -->
+    <div class="section" id="pending-section" style="display:none">
+      <div class="section-title section-title-row">
+        <span>В очереди (<span id="pending-count">0</span>)</span>
+        <button id="cancel-all" class="link-btn" type="button" title="Отменить все ожидающие">очистить</button>
+      </div>
+      <div id="pending-list"></div>
+    </div>
+
+    <!-- Завершённые -->
+    <div class="section" id="finished-section" style="display:none">
+      <div class="section-title section-title-row">
+        <span>Последние</span>
+        <button id="clear-finished" class="link-btn" type="button" title="Очистить историю">очистить</button>
+      </div>
+      <div id="finished-list"></div>
+    </div>
+
+    <!-- Сервер не отвечает -->
+    <div id="server-down-state" class="empty server-down-state" style="display:none">
+      <div>Сервер не отвечает.</div>
+      <div class="hint">Запусти <code>start-server.bat</code></div>
+      <button id="recheck">Проверить снова</button>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
